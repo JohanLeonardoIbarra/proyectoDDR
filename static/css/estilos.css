@@ -1,0 +1,68 @@
+h1{
+    color: black;
+}
+.footer{
+    color: black;
+    background-color: gainsboro;
+}
+.footer a{
+    color: white;
+}
+.navStyle{
+    background-color: gainsboro;
+}
+.banner2{
+    display: none;
+}
+.vtp{
+    display: block;
+    margin: auto;
+}
+.sidebar
+{
+    width: 18%;
+    margin-left: 1%;
+    margin-top: 20%;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+}
+.sidebar2
+{
+    width: 18%;
+    margin-left: 1%;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+}
+h3{
+    color: darkgray;
+}
+.sidebar button{
+    background-color: aliceblue;
+    color: black;
+}
+
+@media screen and (max-width: 800px){
+    .banner1{
+        display: none;
+    }
+    .banner2{
+        display: block;
+    }
+}
+.cuerpo{
+    background-color: #E9E1E1;
+}
+
+
+/*
+Paleta
+
+Fuerte: #E6C3C3
+Cuerpo: #E6D4D4
+Ligero: #E9E1E1
+Footer: #A3A0A0
+
+
+*/
