@@ -17,7 +17,7 @@
         {% block body %}
 
     <div class="container mt-5 mb-5">
-        <form action="JSP/resgistroProducto.jsp" method="post" enctype="multipart/form-data">
+        <form action="/Subir_Producto" method="post" enctype="multipart/form-data">
 
             <div class="form-group">
                 <div class="form-group">
@@ -34,22 +34,22 @@
                 </div>
                 <div class="form-group">
 
-                    <label for="Detalle">Detalle:</label> <textarea name="detalle" id="" cols="30" rows="10"></textarea>
+                    <label for="Detalle">Detalle:</label> <input type="text" name="detalle" id=""></input>
                 </div>
                 <div class="form-group">
 
                     <label for="valor">Valor: </label> <input type="number" name="valor">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Example select</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
+                    <label for="exampleFormControlSelect1">Categoria</label>
+                    <select class="form-control" name="categ" id="exampleFormControlSelect1">
+                        {% for cat in categorias %}
+                        <option value="{{ cat[0] }}">{{ cat[1] }}</option>
+                        {% endfor %}
                     </select>
                 </div>
-
-
                 <label for="imagen">Imagen</label>
-                <input type="file" name="file">
+                <input type="file" name="imagen">
             </div>
 
 
