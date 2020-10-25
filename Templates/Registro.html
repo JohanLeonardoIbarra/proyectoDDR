@@ -17,7 +17,17 @@
         {% block body %}
 
     <div class="container mt-5 mb-5">
-        <form action="/Subir_Producto" method="post" enctype="multipart/form-data">
+
+        <div class="row">
+        
+        <div class="col-6">
+            <a href="/" class="btn btn-secondary" style="width: 100%;">index</a>
+            <a href="" class="btn btn-secondary" style="width: 100%;">Registrar Categoria</a>
+            <a href="" class="btn btn-secondary" style="width: 100%;">Modificar Empresa</a>
+            <a href="" class="btn btn-secondary" style="width: 100%;">Usuarios</a>
+        </div>
+        <div class="col-6">
+        <form action="/RegistrarProducto_Subida" method="post" enctype="multipart/form-data">
 
             <div class="form-group">
                 <div class="form-group">
@@ -51,11 +61,37 @@
                 <label for="imagen">Imagen</label>
                 <input type="file" name="imagen">
             </div>
-
-
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        </div>
+        </div>
     </div>
+
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Categoria</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in productos %}
+        <tr>
+            <th>{{p[0]}}</th>
+            <th>{{p[2]}}</th>
+            <th>{{p[3]}}</th>
+            <th>{{p[5]}}</th>
+            <th>{{p[7]}}</th>
+            <th><a href="/Editar/{{p[0]}}" class="btn btn-info">Editar</a> <a href="/Eliminar/{{p[0]}}" class="btn btn-danger">Eliminar</a></th>
+        </tr>
+        {% endfor %}
+    </table>
+</tbody>
 
     {% endblock %}}
 

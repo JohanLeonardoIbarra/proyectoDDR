@@ -38,11 +38,29 @@ h1{
     text-align: center;
 }
 h3{
-    color: darkgray;
+    color: white;
+    text-align: center;
+    font-size: large;
+}
+
+h4{
+    color: white;
+    text-align: center;
+    font-size: xx-large;
 }
 .sidebar button{
     background-color: aliceblue;
     color: black;
+}
+
+.cuadro{
+    background: rgb(86,15,154);
+}
+
+
+.cuadro img{
+    display: block;
+    margin: auto;
 }
 
 @media screen and (max-width: 800px){
@@ -55,6 +73,12 @@ h3{
 }
 .cuerpo{
     background-color: white;
+}
+.centro{
+    text-align: center;
+}
+h2{
+    color: black;
 }
 
 

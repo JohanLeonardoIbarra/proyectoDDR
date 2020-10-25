@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar" id="navStyle">
         <div>
-            <h1 class="display-4">Detalles Dulce Regalo</h1>
+            <a href="/" class="display-4">Detalles Dulce Regalo</a>
         </div>
     </nav>
     <div id="carouselExampleSlidesOnly" class="carousel slide banner1" data-ride="carousel">
@@ -45,9 +45,9 @@
           </div>
           <div class="col-sm">
               <div class="text-center">
-              <a href="#"><img src="img/facebook.png" style="width: 50px;" alt=""></a>
-              <a href="#"><img src="img/twitter.png" style="width: 50px;" alt=""></a>
-              <a href="#"><img src="img/intagram.png" style="width: 50px;" alt=""></a>
+              <a href="#"><img src="{{ url_for('static', filename='img/facebook.png')}}" style="width: 50px;" alt=""></a>
+              <a href="#"><img src="{{ url_for('static', filename='img/twitter.png')}}" style="width: 50px;" alt=""></a>
+              <a href="#"><img src="{{ url_for('static', filename='img/instagram.png')}}" style="width: 50px;" alt=""></a>
               <br>
               <a href="#" class="btn btn-secondary mt-4">Contactanos</a>
               </div>
