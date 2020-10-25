@@ -1,15 +1,17 @@
 h1{
-    color: black;
+    color: white;
 }
 .footer{
-    color: black;
-    background-color: gainsboro;
+    color: white;
+    background: rgb(86,15,154);
+    background: linear-gradient(90deg, rgba(86,15,154,1) 0%, rgba(9,61,121,1) 51%, rgba(0,255,237,1) 100%);
 }
 .footer a{
     color: white;
 }
-.navStyle{
-    background-color: gainsboro;
+#navStyle{
+    background: rgb(86,15,154);
+    background: linear-gradient(90deg, rgba(86,15,154,1) 0%, rgba(51,9,121,1) 52%, rgba(0,54,255,1) 100%);
 }
 .banner2{
     display: none;
@@ -52,7 +54,7 @@ h3{
     }
 }
 .cuerpo{
-    background-color: #E9E1E1;
+    background-color: white;
 }
 
 
