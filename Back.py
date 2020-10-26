@@ -49,20 +49,21 @@ def empresa():
     mysql.connection.commit()
     return render_template('Empresa.html', empresa = dato)
 
-@app.route('/ActualizarEmpresa')
+@app.route('/ActualizarEmpresa', methods=['POST'])
 def empresaupdate():
-    nombre = request.form['nombre']
-    qs = request.form['QuienesSomos']
-    email = request.form['email']
-    dir = request.form['dir']
-    cel = request.form['cel']
-    fb = request.form['facebook']
-    tt = request.form['twitter']
-    ig = request.form['instagram']
-    cur = mysql.connection.cursor()
-    cur.execute('Update * from empresa where id = 0 Values (0,%s,%s,%s,%s,%s,%s,%s,%s)', (nombre , qs , email, dir, cel, fb, tt, ig))
-    mysql.connection.commit()
-    return Empresa()
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        qs = request.form['QuienesSomos']
+        email = request.form['email']
+        dir = request.form['dir']
+        cel = request.form['cel']
+        fb = request.form['facebook']
+        tt = request.form['twitter']
+        ig = request.form['instagram']
+        cur = mysql.connection.cursor()
+        cur.execute('Update * from empresa where id = 0 Values (0,%s,%s,%s,%s,%s,%s,%s,%s)', (nombre , qs , email, dir, cel, fb, tt, ig))
+        mysql.connection.commit()
+        return Empresa()
 
 @app.route('/Contacto')
 def contacto():
