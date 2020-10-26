@@ -1,0 +1,57 @@
+{% extends 'navbar.html' %}
+
+{% block body %}
+<a class="btn btn-info" href="/Administrador">Volver</a>
+
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 class="display-4 card">Detalles De la Empresa</h1>
+            <div class="container">
+                {% for e in empresa %}
+                <h1 class="empresaT">Nombre: {{ e[1] }}</h1>
+                <p>Quienes Somos? {{ e[2] }}</p>
+                <p>Email: {{ e[3] }}</p>
+                <p>Direccion: {{ e[4] }}</p>
+                <h2>Telefono: {{ e[5] }}</h2>
+                <h3>Redes Sociales</h3>
+                <p>Facebook: {{ e[6] }} </p>
+                <p>Twitter: {{ e[7] }}</p>
+                <p>Instagram:  {{ e[8] }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <form action="/EmpresaUpdate">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label> <input type="text" class="form-control" name="nombre">
+                </div>
+                <div class="form-group">
+                    <label for="QuienesSomos">Quienes Somos</label> <textarea name="QuienesSomos" class="form-control" id="" cols="30" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Contacto</label> <input type="email" class="form-control" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="dir">Direccion</label> <input type="text" class="form-control" name="dir">
+                </div>
+                <div class="form-group">
+                    <label for="cel">Telefono de Contacto</label> <input type="text" class="form-control" name="cel">
+                </div>
+                <div class="form-group">
+                    <label for="facebook">Facebook</label> <input type="url" name="facebook" class="form-control" id="">
+                </div>
+                <div class="form-group">
+                    <label for="twitter">Twitter</label> <input type="url" name="twitter" class="form-control" id="">
+                </div>
+                <div class="form-group">
+                    <label for="instagram">Instagram</label> <input type="url" name="instagram" class="form-control" id="">
+                </div>
+                <button type="submit" class="btn btn-info">Actulizar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

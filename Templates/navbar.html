@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css')}}">
 </head>
 <body>
-    <nav class="navbar" id="navStyle">
+        <nav class="navbar" id="navStyle">
         <div>
             <a style="color: white" href="/" class="display-4">Detalles Dulce Regalo</a>
         </div>
@@ -26,7 +26,6 @@
         </div>
       </div>
     </div>
-    
     {% block body %}
 
 
@@ -37,20 +36,21 @@
           <div class="col-sm">
               <h1>Informacion de contacto</h1>
               <p>
-                  Email: xxxxx@xxxxxxxxxxxx.xxx
+                  Email: #
               </p>
               <p>
-                  Telefonos de contacto: +xx xxx xxx xx xx
+                  Telefonos de contacto: 3223799990
               </p>
           </div>
           <div class="col-sm">
               <div class="text-center">
               <a href="#"><img src="{{ url_for('static', filename='img/facebook.png')}}" style="width: 50px;" alt=""></a>
               <a href="#"><img src="{{ url_for('static', filename='img/twitter.png')}}" style="width: 50px;" alt=""></a>
-              <a href="#"><img src="{{ url_for('static', filename='img/instagram.png')}}" style="width: 50px;" alt=""></a>
+              <a href="https://www.instagram.com/detallesdulceregalo/"><img src="{{ url_for('static', filename='img/instagram.png')}}" style="width: 50px;" alt=""></a>
               <br>
-              <a href="#" class="btn btn-secondary mt-4">Contactanos</a>
-              </div>
+              <a href="/Contacto" class="btn btn-secondary mt-4">Contactanos</a>
+      
+            </div>
           </div>
           
       </div>
@@ -58,6 +58,7 @@
           <h5 class="">Copirigth y demas</h5>
       </div>
   </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

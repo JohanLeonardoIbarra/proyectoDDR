@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-10-2020 a las 17:00:22
+-- Tiempo de generación: 26-10-2020 a las 18:22:28
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
   `user` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -36,8 +37,9 @@ CREATE TABLE `admin` (
 -- Volcado de datos para la tabla `admin`
 --
 
-INSERT INTO `admin` (`user`, `password`) VALUES
-('johan', '1234');
+INSERT INTO `admin` (`id`, `user`, `password`) VALUES
+(1, 'johan', '1234'),
+(2, 'Leonardo', 'arx160A1');
 
 -- --------------------------------------------------------
 
@@ -79,6 +81,13 @@ CREATE TABLE `empresa` (
   `instagram` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Almacena la información de la empresa.  Incluye todo lo referente a la configuración de la empresa.';
 
+--
+-- Volcado de datos para la tabla `empresa`
+--
+
+INSERT INTO `empresa` (`id`, `nombre`, `quienessomos`, `emailcontacto`, `direccion`, `telefonocontacto`, `facebook`, `twitter`, `instagram`) VALUES
+(0, 'Detalles Dulce Regalo', 'Detalles Dulce Regalo es una empresa Cucuteña creada por 2 mujeres, visionarias que desde inicios del 2020 busca consolidarse como un referente en el mercado On-line de los Regalos y Detalles tipo experiencia.', '#', '#', '3223799990', '#', '#', 'https://www.instagram.com/detallesdulceregalo/');
+
 -- --------------------------------------------------------
 
 --
@@ -92,7 +101,7 @@ CREATE TABLE `producto` (
   `descripcioncorta` varchar(250) DEFAULT NULL COMMENT 'Una descripcion corta del producto',
   `detalle` text DEFAULT NULL COMMENT 'Detalle extenso de la información del producto',
   `valor` decimal(10,2) DEFAULT NULL COMMENT 'Precio del producto',
-  `imagen` blob NOT NULL,
+  `imagen` varchar(255) NOT NULL,
   `categoria_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Almacena la información del producto';
 
@@ -101,10 +110,9 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id`, `referencia`, `nombre`, `descripcioncorta`, `detalle`, `valor`, `imagen`, `categoria_id`) VALUES
-(1, 'algo', 'algo', 'algo', 'algo', '20000.00', 0x3c46696c6553746f726167653a202754494a4a2e706e6727202827696d6167652f706e6727293e, 0),
-(2, 'algo', 'algo', 'algo', 'algo', '20000.00', 0x3c46696c6553746f726167653a202754494a4a2e706e6727202827696d6167652f706e6727293e, 0),
-(3, 'algo', 'pere', 'algo', 'algo', '20000.00', 0x3c46696c6553746f726167653a202754494a4a2e706e6727202827696d6167652f706e6727293e, 0),
-(4, 'algo', 'pere', 'algo', 'algo', '20000.00', 0x3c46696c6553746f726167653a202754494a4a2e706e6727202827696d6167652f706e6727293e, 2);
+(8, '56465263', 'Desayuno Pony', 'Desayuno', 'Con un pony', '55000.00', 'detalle9.PNG', 0),
+(9, '54654', 'Caja Sorpresa', 'Una caja', 'Con sorpresa', '5465132.00', 'detalle3.PNG', 3),
+(10, '74557', 'Flores con Chocolates', 'Flores', 'con chocolates', '23651.00', 'detalle6.PNG', 2);
 
 --
 -- Índices para tablas volcadas
@@ -114,7 +122,7 @@ INSERT INTO `producto` (`id`, `referencia`, `nombre`, `descripcioncorta`, `detal
 -- Indices de la tabla `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`user`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `categoria`
@@ -140,10 +148,16 @@ ALTER TABLE `producto`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

@@ -1,6 +1,7 @@
 h1{
     color: white;
 }
+
 .footer{
     color: white;
     background: rgb(86,15,154);
@@ -78,6 +79,20 @@ h4{
     text-align: center;
 }
 h2{
+    color: black;
+}
+
+.card{
+    background: rgb(86,15,154);
+    background: linear-gradient(90deg, rgba(86,15,154,1) 0%, rgba(51,9,121,1) 52%, rgba(0,54,255,1) 100%);
+}
+
+.parrafo{
+    border-style: ridge;
+    border-color: black;
+    border-radius: 2%;
+}
+.empresaT{
     color: black;
 }
 
