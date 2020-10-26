@@ -3,7 +3,7 @@ from flask_mysqldb import MySQL
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from werkzeug import secure_filename
-import os, smtplib
+import os, smtplib, DetallesDAO
 
 app = Flask(__name__)
 mysql = MySQL()
@@ -21,56 +21,100 @@ app.secret_key = "mysecretkey"
 
 @app.route('/')
 def Index():
-    cur2 = mysql.connection.cursor()
-    cur = mysql.connection.cursor()
-    cur.execute('select * from producto LIMIT 9')
-    cur2.execute('select * from empresa')
-    data = cur.fetchall()
-    data2 = cur2.fetchall()
-    mysql.connection.commit()
-    return render_template('index.html', productos = data, empresa = data2)
+    Productos = DetallesDAO.listaPocosProductos()
+    Empresa = DetallesDAO.Empresa()
+    return render_template('index.html', productos = Productos , empresa = Empresa)
 
 @app.route('/Catalogo')
 def catalogo():
-    cur = mysql.connection.cursor()
-    cur.execute('Select * from producto')
-    cur2 = mysql.connection.cursor()
-    cur2.execute('Select * from categoria')
-    data = cur.fetchall()
-    cat = cur2.fetchall()
-    mysql.connection.commit()
-    return render_template('Catalogo.html', productos = data, categorias = cat)
+    Productos = DetallesDAO.listaProductos()
+    Categorias = DetallesDAO.ListaCategorias()
+    return render_template('Catalogo.html', productos = Productos, categorias = Categorias)
 
 @app.route('/EditProducto/<string:id>')
 def edit_producto(id):
-    cur = mysql.connection.cursor()
-    cur.execute('Select * from producto where id = {0}'.format(id))
-    data = cur.fetchone()
-    mysql.connection.commit()
-    print(data)
-    return render_template('EditProducto.html', producto = data)
-
-@app.route('/EditarProducto', methods = ['POST'])
-def editarProducto():
-    if request.method == 'POST':
-        id = request.form['id']
-        name = request.form['name']
-        ref = request.form['referencia']
-        desc = request.form['descripcion']
-        detail = request.form['detalle']
-        valor = request.form['valor']
-        cur = mysql.connection.cursor()
-        cur.execute('Update producto Set nombre = %s, referencia = %s, descripcioncorta = %s, detalle = %s, valor = %s Where id = '+ id, (name, ref, desc, detail, valor))
-        mysql.connection.commit()
-        return Administrador()
+    Producto = DetallesDAO.UnProducto(id)
+    return render_template('EditProducto.html', producto = Producto)
 
 @app.route('/Empresa')
 def empresa():
-    cur = mysql.connection.cursor()
-    cur.execute('select * from empresa')
-    dato = cur.fetchall()
-    mysql.connection.commit()
-    return render_template('Empresa.html', empresa = dato)
+    Empresa = DetallesDAO.Empresa()
+    return render_template('Empresa.html', empresa = Empresa)
+
+@app.route('/Categorias')
+def categorias():
+    Categorias = DetallesDAO.ListaCategorias()
+    return render_template('Categorias.html', categoria = Categorias)
+
+@app.route('/Catalogo/<string:id>')
+def catalogoconid(id):
+    Productos = DetallesDAO.ProductosPorCategoria(id)
+    Categorias = DetallesDAO.ListaCategorias()
+    return render_template('Catalogo.html', productos = Productos, categorias = Categorias)
+
+@app.route('/Administrador')
+def Administrador():
+    Productos = DetallesDAO.listaProductos()
+    Categorias = DetallesDAO.ListaCategorias()
+    return render_template('registro.html', categorias = Categorias, productos = Productos)
+
+@app.route('/Producto/<string:id>')
+def Producto(id):
+    Producto = DetallesDAO.UnProducto(id)
+    return render_template('Producto.html', producto = Producto)
+
+@app.route('/Crear_Usuario', methods=['POST'])
+def add_user():
+    if request.method == 'POST':
+        user = request.form['user']
+        passw = request.form['pass']
+        cur = mysql.connection.cursor()
+        cur.execute('insert into admin values(null,%s,%s)', (user, passw))
+        mysql.connection.commit()
+        return userAdmin()
+
+@app.route('/Categoria_Delete/<string:id>')
+def del_categorias(id):
+    DetallesDAO.BorrarCategoria(id)
+    return categorias()
+
+@app.route('/Eliminar/<string:id>')
+def delete_producto(id):
+    DetallesDAO.BorrarProducto(id)
+    return Administrador()
+
+
+#Usuarios y Login
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
+
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        Admins = DetallesDAO.Administradores()
+        nombre = request.form['userAdmin']
+        password = request.form['passAdmin']
+        for dato in Admins:
+            if nombre == dato[1] :
+                if password == dato[2] :
+                    return Administrador()
+        return render_template('admin.html')
+
+@app.route('/User')
+def userAdmin():
+    Admins = DetallesDAO.Administradores()
+    return render_template('User.html', usuarios = Admins)
+
+@app.route('/User_Delete/<string:id>')
+def del_user(id):
+    if id == '0':
+        return userAdmin()
+    DetallesDAO.BorrarAdmin(id)
+    return userAdmin()
+
+#Actualizacion en la Base de Datos
 
 @app.route('/ActualizarEmpresa', methods=['POST'])
 def empresaupdate():
@@ -88,20 +132,40 @@ def empresaupdate():
         mysql.connection.commit()
         return empresa()
 
-@app.route('/Categorias')
-def categorias():
-    cur = mysql.connection.cursor()
-    cur.execute('select * from categoria')
-    datos = cur.fetchall()
-    mysql.connection.commit()
-    return render_template('Categorias.html', categoria = datos)
+@app.route('/EditarProducto', methods = ['POST'])
+def editarProducto():
+    if request.method == 'POST':
+        id = request.form['id']
+        name = request.form['name']
+        ref = request.form['referencia']
+        desc = request.form['descripcion']
+        detail = request.form['detalle']
+        valor = request.form['valor']
+        cur = mysql.connection.cursor()
+        cur.execute('Update producto Set nombre = %s, referencia = %s, descripcioncorta = %s, detalle = %s, valor = %s Where id = '+ id, (name, ref, desc, detail, valor))
+        mysql.connection.commit()
+        return Administrador()
 
-@app.route('/Categoria_Delete/<string:id>')
-def del_categorias(id):
-    cur = mysql.connection.cursor()
-    cur.execute('delete from categoria where id = {0}'.format(id))
-    mysql.connection.commit()
-    return categorias()
+
+#Insersiones en la Base de datos
+
+@app.route('/RegistrarProducto_Subida', methods=['POST'])
+def RegistrarProducto_Subida():
+    if request.method == 'POST':
+        nombre = request.form['name']
+        referencia = request.form['referencia']
+        descripcion = request.form['descripcion']
+        detalle = request.form['detalle']
+        valor = request.form['valor']
+        categ = request.form['categ']
+        imagen = request.files['imagen']
+        imagenname = secure_filename(imagen.filename)
+        imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], imagenname))
+        cur = mysql.connection.cursor()
+        cur.execute('insert into producto (id, referencia, nombre, descripcioncorta, detalle, valor, imagen, categoria_id) Values (null,%s,%s,%s,%s,%s,%s,%s)',(referencia, nombre, descripcion, detalle, valor, imagenname, categ))
+        mysql.connection.commit()
+        flash('PRODUCTO CREADO SATISFACTORIAMENTE')
+        return Administrador()
 
 @app.route('/Crear_Categoria', methods = ['POST'])
 def crear_categoria():
@@ -112,6 +176,10 @@ def crear_categoria():
         cur.execute('Insert into categoria values (%s, %s, %s)', (id, nombre, 1))
         mysql.connection.commit()
         return categorias()
+
+
+
+#Formulario De Contacto y Envio de Correo
 
 @app.route('/Contacto')
 def contacto():
@@ -140,108 +208,6 @@ def correo():
         server.quit()
 
         return contacto()
-
-
-@app.route('/Catalogo/<string:id>')
-def catalogoconid(id):
-    cur = mysql.connection.cursor()
-    cur.execute('Select * from producto where categoria_id = '+id)
-    cur2 = mysql.connection.cursor()
-    cur2.execute('Select * from categoria')
-    data = cur.fetchall()
-    cat = cur2.fetchall()
-    mysql.connection.commit()
-    return render_template('Catalogo.html', productos = data, categorias = cat)
-
-@app.route('/admin')
-def admin():
-    return render_template('admin.html')
-
-@app.route('/login', methods=['POST'])
-def login():
-    if request.method == 'POST':
-        cur = mysql.connection.cursor()
-        cur.execute('Select * from admin')
-        data = cur.fetchall()
-        mysql.connection.commit()
-        nombre = request.form['userAdmin']
-        password = request.form['passAdmin']
-        for dato in data:
-            if nombre == dato[1] :
-                if password == dato[2] :
-                    return Administrador()
-        return render_template('admin.html')
-
-@app.route('/User')
-def userAdmin():
-    cur = mysql.connection.cursor()
-    cur.execute('Select * from admin')
-    data = cur.fetchall()
-    mysql.connection.commit()
-    return render_template('User.html', usuarios = data)
-
-@app.route('/User_Delete/<string:id>')
-def del_user(id):
-    if id == '0':
-        return userAdmin()
-    cur = mysql.connection.cursor()
-    cur.execute('delete from admin Where id = {0}'.format(id))
-    cur.connection.commit()
-    return userAdmin()
-
-@app.route('/Crear_Usuario', methods=['POST'])
-def add_user():
-    if request.method == 'POST':
-        user = request.form['user']
-        passw = request.form['pass']
-        cur = mysql.connection.cursor()
-        cur.execute('insert into admin values(null,%s,%s)', (user, passw))
-        mysql.connection.commit()
-        return userAdmin()
-
-@app.route('/Administrador')
-def Administrador():
-    cur = mysql.connection.cursor()
-    cur2 = mysql.connection.cursor()
-    cur.execute('Select * from categoria')
-    cur2.execute('Select * from producto')
-    data = cur.fetchall()
-    prod = cur2.fetchall()
-    mysql.connection.commit()
-    return render_template('registro.html', categorias = data, productos = prod)
-
-@app.route('/Eliminar/<string:id>')
-def delete_producto(id):
-    cur = mysql.connection.cursor()
-    cur.execute('Delete From producto Where id = {0}'.format(id))
-    mysql.connection.commit()
-    return Administrador()
-
-@app.route('/Producto/<string:id>')
-def Producto(id):
-    cur = mysql.connection.cursor()
-    cur.execute('select * from producto where id = '+id)
-    dato = cur.fetchall()
-    mysql.connection.commit()
-    return render_template('Producto.html', producto = dato)
-
-@app.route('/RegistrarProducto_Subida', methods=['POST'])
-def RegistrarProducto_Subida():
-    if request.method == 'POST':
-        nombre = request.form['name']
-        referencia = request.form['referencia']
-        descripcion = request.form['descripcion']
-        detalle = request.form['detalle']
-        valor = request.form['valor']
-        categ = request.form['categ']
-        imagen = request.files['imagen']
-        imagenname = secure_filename(imagen.filename)
-        imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], imagenname))
-        cur = mysql.connection.cursor()
-        cur.execute('insert into producto (id, referencia, nombre, descripcioncorta, detalle, valor, imagen, categoria_id) Values (null,%s,%s,%s,%s,%s,%s,%s)',(referencia, nombre, descripcion, detalle, valor, imagenname, categ))
-        mysql.connection.commit()
-        flash('PRODUCTO CREADO SATISFACTORIAMENTE')
-        return Administrador()
 
 
 if __name__ == '__main__':
