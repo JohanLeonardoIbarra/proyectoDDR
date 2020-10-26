@@ -23,33 +23,35 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <form action="/EmpresaUpdate" method='POST'>
+            {% for e in empresa %}
+            <form action="/ActualizarEmpresa" method='POST'>
                 <div class="form-group">
-                    <label for="nombre">Nombre</label> <input type="text" class="form-control" name="nombre">
+                    <label for="nombre">Nombre</label> <input required value="{{e[1]}}" type="text" class="form-control" name="nombre">
                 </div>
                 <div class="form-group">
-                    <label for="QuienesSomos">Quienes Somos</label> <textarea name="QuienesSomos" class="form-control" id="" cols="30" rows="10"></textarea>
+                    <label for="QuienesSomos">Quienes Somos</label> <input required value="{{e[2]}}" name="QuienesSomos" class="form-control" ></input>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email Contacto</label> <input type="email" class="form-control" name="email">
+                    <label for="email">Email Contacto</label> <input required value="{{e[3]}}" type="email" class="form-control" name="email">
                 </div>
                 <div class="form-group">
-                    <label for="dir">Direccion</label> <input type="text" class="form-control" name="dir">
+                    <label for="dir">Direccion</label> <input required type="text" value="{{e[4]}}" class="form-control" name="dir">
                 </div>
                 <div class="form-group">
-                    <label for="cel">Telefono de Contacto</label> <input type="text" class="form-control" name="cel">
+                    <label for="cel">Telefono de Contacto</label> <input required value="{{e[5]}}" type="text" class="form-control" name="cel">
                 </div>
                 <div class="form-group">
-                    <label for="facebook">Facebook</label> <input type="url" name="facebook" class="form-control" id="">
+                    <label for="facebook">Facebook</label> <input required type="url" value="{{e[6]}}" name="facebook" class="form-control" id="">
                 </div>
                 <div class="form-group">
-                    <label for="twitter">Twitter</label> <input type="url" name="twitter" class="form-control" id="">
+                    <label for="twitter">Twitter</label> <input required type="url" value="{{e[7]}}" name="twitter" class="form-control" id="">
                 </div>
                 <div class="form-group">
-                    <label for="instagram">Instagram</label> <input type="url" name="instagram" class="form-control" id="">
+                    <label for="instagram">Instagram</label> <input required type="url" value="{{e[8]}}" name="instagram" class="form-control" id="">
                 </div>
                 <button type="submit" class="btn btn-info">Actulizar</button>
             </form>
+            {% endfor %}
         </div>
     </div>
 </div>

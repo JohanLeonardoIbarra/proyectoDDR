@@ -41,6 +41,29 @@ def catalogo():
     mysql.connection.commit()
     return render_template('Catalogo.html', productos = data, categorias = cat)
 
+@app.route('/EditProducto/<string:id>')
+def edit_producto(id):
+    cur = mysql.connection.cursor()
+    cur.execute('Select * from producto where id = {0}'.format(id))
+    data = cur.fetchone()
+    mysql.connection.commit()
+    print(data)
+    return render_template('EditProducto.html', producto = data)
+
+@app.route('/EditarProducto', methods = ['POST'])
+def editarProducto():
+    if request.method == 'POST':
+        id = request.form['id']
+        name = request.form['name']
+        ref = request.form['referencia']
+        desc = request.form['descripcion']
+        detail = request.form['detalle']
+        valor = request.form['valor']
+        cur = mysql.connection.cursor()
+        cur.execute('Update producto Set nombre = %s, referencia = %s, descripcioncorta = %s, detalle = %s, valor = %s Where id = '+ id, (name, ref, desc, detail, valor))
+        mysql.connection.commit()
+        return Administrador()
+
 @app.route('/Empresa')
 def empresa():
     cur = mysql.connection.cursor()
@@ -61,9 +84,34 @@ def empresaupdate():
         tt = request.form['twitter']
         ig = request.form['instagram']
         cur = mysql.connection.cursor()
-        cur.execute('Update * from empresa where id = 0 Values (0,%s,%s,%s,%s,%s,%s,%s,%s)', (nombre , qs , email, dir, cel, fb, tt, ig))
+        cur.execute('Update empresa Set nombre = %s, quienessomos = %s, emailcontacto = %s, direccion = %s, telefonocontacto = %s, facebook = %s, twitter = %s, instagram = %s where id = 0', (nombre , qs , email, dir, cel, fb, tt, ig))
         mysql.connection.commit()
-        return Empresa()
+        return empresa()
+
+@app.route('/Categorias')
+def categorias():
+    cur = mysql.connection.cursor()
+    cur.execute('select * from categoria')
+    datos = cur.fetchall()
+    mysql.connection.commit()
+    return render_template('Categorias.html', categoria = datos)
+
+@app.route('/Categoria_Delete/<string:id>')
+def del_categorias(id):
+    cur = mysql.connection.cursor()
+    cur.execute('delete from categoria where id = {0}'.format(id))
+    mysql.connection.commit()
+    return categorias()
+
+@app.route('/Crear_Categoria', methods = ['POST'])
+def crear_categoria():
+    if request.method == 'POST':
+        id = request.form['id']
+        nombre = request.form['categoria']
+        cur = mysql.connection.cursor()
+        cur.execute('Insert into categoria values (%s, %s, %s)', (id, nombre, 1))
+        mysql.connection.commit()
+        return categorias()
 
 @app.route('/Contacto')
 def contacto():
