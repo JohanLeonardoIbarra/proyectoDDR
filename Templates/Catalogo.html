@@ -9,8 +9,10 @@
     <link rel="icon" href="img/favicon.png" type="image/png" />
 </head>
 
-<body>
-    {% extends "navbar.html"%}
+<body style="background: rgb(86,15,154);
+background: linear-gradient(90deg, rgba(86,15,154,1) 0%, rgba(9,61,121,1) 51%, rgba(0,255,237,1) 100%);">
+ 
+ {% extends "navbar.html"%}
 
     {% block body %}
 
@@ -21,16 +23,20 @@
 
     <div class="container mt-5 mb-5 border border-secondary rounded">
         <div class="row centro">
-            <div class="col-sm-3">
+            <div style="background-color: cornsilk;" class="col-sm-3">
                 <div class="">
                     <h2>Categorias</h2>
-                    <a class="btn btn-secondary mt-5" style="width: 100%;" href="/Catalogo">Todos Los Productos</a>
+                    <a class="btn btn-primary mt-5" style="width: 100%;" href="/Catalogo">Todos Los Productos</a>
+                    <br>
+                    <br>
                     {% for cat in categorias %}
-                    <a class="btn btn-secondary" style="width: 100%;" href="/Catalogo/{{cat[0]}}">{{cat[1]}}</a>
+                    <a class="btn btn-primary" style="width: 100%;" href="/Catalogo/{{cat[0]}}">{{cat[1]}}</a>
+                    <br>    
+                    <br>
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-sm-9">
+            <div style="background-color: cornsilk;" class="col-sm-9">
                 <h2>Productos</h2>
                 <div class="row row-cols-4">
 
@@ -40,7 +46,7 @@
                         <div class="container cuadro" style="width: 200px;">
                             <img src="{{ url_for('static', filename='productos/'+p[6])}}" style="height: 150px;" alt="">
                             <h2>{{p[2]}}</h2>
-                            <h3>{{p[5]}}</h3>
+                            <h3 style="color: black;">${{p[5]}}</h3>
                             <a class="btn btn-info" href="/Producto/{{p[0]}}">Ver Mas</a>
                         </div>
                     </div>

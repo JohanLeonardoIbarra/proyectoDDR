@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css')}}">
 </head>
-<body>
+<body style="background: rgb(86,15,154);
+background: linear-gradient(90deg, rgba(86,15,154,1) 0%, rgba(9,61,121,1) 51%, rgba(0,255,237,1) 100%);">
         <nav class="navbar" id="navStyle">
         <div>
+          <img src="../static/img/favicon.png" width="60" height="60" alt="">
             <a style="color: white" href="/" class="display-4">Detalles Dulce Regalo</a>
         </div>
+        <a href="admin" class="btn btn-success ">Administrador</a>
+
     </nav>
     <div id="carouselExampleSlidesOnly" class="carousel slide banner1" data-ride="carousel">
       <div class="carousel-inner">
@@ -19,11 +23,9 @@
             <img src="{{ url_for('static', filename='img/banner1.jpeg') }}" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="{{ url_for('static', filename='img/bannerDDR.jpg') }}" class="d-block w-100" alt="...">
+          <img src="{{ url_for('static', filename='img/banner3new.jpg') }}" class="d-block w-100" alt="...">
         </div>
-        <div class="carousel-item">
-          <img src="{{ url_for('static', filename='img/bannerDDR.jpg') }}" class="d-block w-100" alt="...">
-        </div>
+        
       </div>
     </div>
     {% block body %}
@@ -36,7 +38,7 @@
           <div class="col-sm">
               <h1>Informacion de contacto</h1>
               <p>
-                  Email: #
+                  Email: detallesdulceregalo@gmail.com
               </p>
               <p>
                   Telefonos de contacto: 3223799990
@@ -44,18 +46,18 @@
           </div>
           <div class="col-sm">
               <div class="text-center">
-              <a href="#"><img src="{{ url_for('static', filename='img/facebook.png')}}" style="width: 50px;" alt=""></a>
-              <a href="#"><img src="{{ url_for('static', filename='img/twitter.png')}}" style="width: 50px;" alt=""></a>
+              <a href="https://www.facebook.com/Detalles-dulce-regalo-123396842824022"><img src="{{ url_for('static', filename='img/facebook.png')}}" style="width: 50px;" alt=""></a>
+              <a href="https://twitter.com/?lang=es"><img src="{{ url_for('static', filename='img/twitter.png')}}" style="width: 50px;" alt=""></a>
               <a href="https://www.instagram.com/detallesdulceregalo/"><img src="{{ url_for('static', filename='img/instagram.png')}}" style="width: 50px;" alt=""></a>
               <br>
-              <a href="/Contacto" class="btn btn-secondary mt-4">Contactanos</a>
+              <a href="/Contacto" class="btn btn-danger mt-4">Contactanos</a>
       
             </div>
           </div>
           
       </div>
       <div class="text-center">
-          <h5 class="">Copirigth y demas</h5>
+          <h5 class=""></h5>
       </div>
   </div>
 

@@ -1,7 +1,7 @@
 {% extends "navbar.html"%}
 {% block body %}
-
-<div class="container mt-5 mb-5">
+<a class="btn btn-info" href="/Administrador">Volver</a>
+<div style="background: white;" class="container mt-5 mb-5">
     <form action="/EditarProducto" method="post">
 
         <div class="form-group">
@@ -30,7 +30,7 @@
                 <label for="valor">Valor: </label> <input value="{{ producto[5] }}" required maxlength="20" class="form-control" type="number" name="valor">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Editar</button>
     </form>
 </div>
 

@@ -12,7 +12,7 @@ h1{
 }
 #navStyle{
     background: rgb(86,15,154);
-    background: linear-gradient(90deg, rgba(86,15,154,1) 0%, rgba(51,9,121,1) 52%, rgba(0,54,255,1) 100%);
+    background: linear-gradient(90deg, rgba(86,15,154,1) 0%, rgba(9,61,121,1) 51%, rgba(0,255,237,1) 100%);
 }
 .banner2{
     display: none;
@@ -55,8 +55,8 @@ h4{
 }
 
 .cuadro{
-    background: rgb(86,15,154);
-    background: linear-gradient(90deg, rgba(86,15,154,1) 0%, rgba(9,61,121,1) 51%, rgba(0,255,237,1) 100%);
+    background-color: rgba(233, 241, 241, 0.774);
+    border: black 0.5px solid;
 }
 
 
@@ -92,6 +92,7 @@ h2{
     border-style: ridge;
     border-color: black;
     border-radius: 2%;
+    
 }
 .empresaT{
     color: black;
