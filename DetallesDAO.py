@@ -1,4 +1,4 @@
-from Back import mysql
+from back import mysql
 
 def conexion():
     return mysql.connection.cursor()
